@@ -3,10 +3,18 @@
 
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
     """BaseModel class is the base class for other classes in the project."""
+
+    def save(self):
+        """Updates 'updated_at with the current datetime."""
+
+        self.updated_at = datetime.now()
+        storage.new(self)
+        storage.save()
 
     def __init__(self, *args, **kwargs):
         """Initializes an instance of the BaseModel class."""
@@ -27,6 +35,8 @@ class BaseModel:
                     )
                 else:
                     self.__dict__[key] = value
+        if not kwargs:
+            storage.new(self)
 
     def __str__(self):
         """String representation of the BaseModel instance."""
