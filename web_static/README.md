@@ -1,0 +1,1 @@
+This is the frontend intro of the Airbnb Clone project
